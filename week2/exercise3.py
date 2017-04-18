@@ -244,7 +244,18 @@ def loops_7():
     This is a hard problem. Use lots of experimentation and draw
     lots of diagrams!
     """
-    star_pyramid = []
+    column = []
+    for x in range(5):
+        rows = []
+        for y in range(9):
+            if abs(y-4) <= x:
+                rows.append("*")
+            else:
+                rows.append(" ")
+        column.append(rows)
+
+    print (column)
+    return column
 
 
 def lp(some_kind_of_list, exercise_name):
