@@ -12,7 +12,14 @@ def loop_ranger(start, stop=None, step=1):
 
     Do this using any method apart from just using range()
     """
-    pass
+    step_of_step = []
+    a = start
+
+    while a != stop:
+        step_of_step.append(a)
+        a = a + step
+        print(step_of_step)
+        return step_of_step
 
 
 def lone_ranger(start, stop, step):
@@ -20,7 +27,7 @@ def lone_ranger(start, stop, step):
 
     Look up the docs for range() and wrap it in a 1:1 way
     """
-    pass
+    return range(start, stop, step)
 
 
 def two_step_ranger(start, stop):
@@ -29,7 +36,13 @@ def two_step_ranger(start, stop):
     Sometimes you want to hide complexity.
     Make a range function that always has a step size of 2
     """
-    pass
+    list = []
+    i = start
+
+    while i != stop:
+        list.append(i)
+        i = i + 2
+        return list
 
 
 def gene_krupa_range(start, stop, even_step, odd_step):
@@ -38,7 +51,18 @@ def gene_krupa_range(start, stop, even_step, odd_step):
     make a list that instead of having evenly spaced steps
     has odd steps be one size and even steps be another.
     """
-    pass
+    list = []
+    x = start
+    step = 0
+
+    while x <= stop:
+        list.append(x)
+        if step % 2 == 1:
+            x = x + odd_step
+        else:
+            x = x + even_step
+        step = step + 1
+    return list
 
 
 def stubborn_asker(low, high):
@@ -84,7 +108,18 @@ def super_asker(low, high):
     Combine stubborn_asker and not_number_rejector to make a function
     that does it all!
     """
-    pass
+    message = "Give me a number between {low}, and {high}:".format(low=low,
+                                                                   high=high)
+    while True:
+        try:
+            input_number = int(raw_input(message))
+            if low < input_number < high:
+                print("{} is great.".format(input_number))
+                return input_number
+            else:
+                print("Sorry, {} is out of range.".format(input=input_number))
+        except Exception as e:
+            print ("try again thats not a number({}))".format(e))
 
 
 if __name__ == "__main__":
