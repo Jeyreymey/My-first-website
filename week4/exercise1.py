@@ -13,6 +13,7 @@ if LOCAL != CWD:
     print("relative to where you think they are")
     print("LOCAL", LOCAL)
     print("CWD", CWD)
+    pass
 
 
 def success_is_relative():
