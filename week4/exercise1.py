@@ -29,7 +29,10 @@ def success_is_relative():
     # this depends on excecution context. Take a look at your CWD and remember
     # that it changes.
     # print(path, CWD)
-    pass
+    file_getter = CWD + "/week1/pySuccessMessage.json"
+    file_reader = open(file_getter, "r")
+    thing = file_reader.read().strip("\n\t")
+    return thing
 
 
 def get_some_details():
@@ -89,7 +92,22 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
-    pass
+    word_pyramid = []
+    length = 3
+    word_url = "http://www.setgetgo.com/randomword/?len="
+    while length < 20:
+            length = requests.get(word_url + str(length)).text
+            word_pyramid.append(str(length))
+            length += 2
+
+    length = 20
+    while length >= 4:
+        length = requests.get(word_url + str(length)).text
+        word_pyramid.append(str(length))
+        length -= 2
+
+    print (word_pyramid)
+    return word_pyramid
 
 
 def wunderground():

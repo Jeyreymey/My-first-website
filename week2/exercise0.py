@@ -15,8 +15,9 @@ def add_5(a_number):
         return a_number plus five
     except expressed in python, not english
     """
-    add_1 = 5 + 1
-    return add_1
+    number = [1, 6, -3, 0.5]
+    add_5 = 5 + number(0)
+    return add_5
 
 
 def adder(a_number, another_number):
@@ -24,7 +25,10 @@ def adder(a_number, another_number):
 
     Same as above, but with any two numbers.
     """
-    return 8 + 3
+    number_one = []
+    number_two = []
+    result = number_one + number_two
+    return result
 
 
 def shout(a_string):
@@ -35,7 +39,7 @@ def shout(a_string):
     or in any of the million places that google will give you.
     "python make a string uppercase" is a good starting search query.
     """
-    shout = "hello"
+    shout = []
     print (shout.upper())
     return (shout.upper())
 
@@ -47,7 +51,7 @@ def really_shout(a_string):
     from above.
     Look up how to 'concatinate' strings to make this happen.
     """
-    shout = "hello!"
+    shout = []
     print (shout.upper())
     return (shout.upper())
 
