@@ -54,9 +54,14 @@ def get_some_details():
     json_data = open(LOCAL + "/lazyduck.json").read()
 
     data = json.loads(json_data)
-    return {"lastName":       None,
-            "password":       None,
-            "postcodePlusID": None
+    lastName = data["results"][0]["name"]["last"]
+    password = data["results"][0]["login"]["password"]
+    postcode = int(data["results"][0]["location"]["postcode"])
+    id_result = int(data["results"][0]["id"]["value"])
+    all_info = postcode + id_result
+    return {"lastName":       lastName,
+            "password":       password,
+            "postcodePlusID": all_info
             }
 
 
@@ -92,22 +97,21 @@ def wordy_pyramid():
     ]
     TIP: to add an argument to a URL, use: ?argName=argVal e.g. ?len=
     """
+    url = "http://www.setgetgo.com/randomword/get.php?len="
     word_pyramid = []
     length = 3
-    word_url = "http://www.setgetgo.com/randomword/?len="
     while length < 20:
-            length = requests.get(word_url + str(length)).text
-            word_pyramid.append(str(length))
-            length += 2
+        pyramid = requests.get(url + str(length)).text
+        word_pyramid.append(str(pyramid))
+        length += 2
 
     length = 20
     while length >= 4:
-        length = requests.get(word_url + str(length)).text
-        word_pyramid.append(str(length))
+        pyramid = requests.get(url + str(length)).text
+        word_pyramid.append(str(pyramid))
         length -= 2
-
-    print (word_pyramid)
-    return word_pyramid
+        print (word_pyramid)
+        return word_pyramid
 
 
 def wunderground():
@@ -122,7 +126,7 @@ def wunderground():
          variable and then future access will be easier.
     """
     base = "http://api.wunderground.com/api/"
-    api_key = "YOUR KEY - REGISTER TO GET ONE"
+    api_key = "25adf3e011717250"
     country = "AU"
     city = "Sydney"
     template = "{base}/{key}/conditions/q/{country}/{city}.json"
@@ -131,10 +135,10 @@ def wunderground():
     the_json = json.loads(r.text)
     obs = the_json['current_observation']
 
-    return {"state":           None,
-            "latitude":        None,
-            "longitude":       None,
-            "local_tz_offset": None}
+    return {"state":           obs["display_location"]["state"],
+            "latitude":        obs["observation_location"]["latitude"],
+            "longitude":       obs["observation_location"]["longitude"],
+            "local_tz_offset": obs["local_tz_offset"]}
 
 
 def diarist():

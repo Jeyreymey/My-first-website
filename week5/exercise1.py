@@ -26,6 +26,7 @@ you'll need to figure out for yourself what to do.
 
 from __future__ import division
 from __future__ import print_function
+import math
 
 
 # This is a terrible function. The rest of the functions in this file do a
@@ -74,32 +75,28 @@ def countdown(message, start, stop, completion_message):
 # The stub functions are made for you, and each one is tested, so this should
 # hand hold quite nicely.
 def calculate_hypotenuse(base, height):
-    base = []
-    height = []
-    hypotenuse = (base ** 2) + (height ** 2)
-    print (hypotenuse)
+    hypotenuse = math.sqrt(base ** 2) + (height ** 2)
     return hypotenuse
 
 
 def calculate_area(base, height):
-    base = []
-    height = []
     area = (base/2) * height
-    print (area)
     return area
 
 
 def calculate_perimeter(base, height):
-    base = []
-    height = []
-    hypotenuse = []
-    perimeter = base + height + hypotenuse
-    print (perimeter)
+    perimeter = base + height + calculate_hypotenuse
     return perimeter
 
 
 def calculate_aspect(base, height):
-    pass
+    if height > base:
+        aspect = 'tall'
+    elif height < base:
+        aspect = 'wide'
+    elif height == base:
+        aspect = 'equal'
+        return aspect
 
 
 # Make sure you reuse the functions you've already got
