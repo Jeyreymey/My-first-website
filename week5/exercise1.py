@@ -193,7 +193,7 @@ def wordy_pyramid():
     import requests
     baseURL = "http://www.setgetgo.com/randomword/get.php?len="
     pyramid_list = []
-    for i in range(3, 21, 2):
+    for i in range(3, 20, 2):
         url = baseURL + str(i)
         r = requests.get(url)
         message = r.text
