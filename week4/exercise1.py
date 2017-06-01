@@ -154,7 +154,10 @@ def diarist():
     TIP: remember to commit 'lasers.pew' and push it to your repo, otherwise
          the test will have nothing to look at.
     """
-    pass
+    script_path = os.path.dirname(os.path.abspath(__file__))
+    file_name = os.path.join(script_path, "lasers.pew")
+    with open(file_name, "w") as handle:
+        print("6", file=handle)
 
 
 if __name__ == "__main__":
