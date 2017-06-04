@@ -62,6 +62,7 @@ def do_bunch_of_bad_things():
 # return a lit of countdown messages, much like in the bad function above.
 # It should say something different in the last message.
 def countdown(message, start, stop, completion_message):
+    """Return a list of countdown messages"""
     message = []
     if start < stop:
         step = 1
@@ -97,7 +98,7 @@ def calculate_area(base, height):
 
 
 def calculate_perimeter(base, height):
-    perimeter = base + height + calculate_hypotenuse
+    perimeter = base + height + calculate_hypotenuse(base, height)
     return perimeter
 
 
@@ -115,12 +116,12 @@ def calculate_aspect(base, height):
 # Make sure you reuse the functions you've already got
 # Don't reinvent the wheel
 def get_triangle_facts(base, height, units="mm"):
-    return {"area": calculate_area,
-            "perimeter": calculate_perimeter,
+    return {"area": calculate_area(base, height),
+            "perimeter": calculate_perimeter(base, height),
             "height": height,
             "base": base,
-            "hypotenuse": calculate_hypotenuse,
-            "aspect": calculate_aspect,
+            "hypotenuse": calculate_hypotenuse(base, height),
+            "aspect": calculate_aspect(base, height),
             "units": units}
 
 
@@ -170,48 +171,59 @@ def tell_me_about_this_right_triangle(facts_dictionary):
                "This is a {aspect} triangle.\n")
 
     facts = pattern.format(**facts_dictionary)
-    stuff = facts + equal + wide + tall
-    print (stuff)
-    pass
+    if facts_dictionary['aspect'] == "tall":
+        tallness = tall.format(**facts_dictionary)
+        return (tallness + facts)
+    elif facts_dictionary['aspect'] == "wide":
+        wideness = wide.format(**facts_dictionary)
+        return (wideness + facts)
+    else:
+        equalness = equal.format(**facts_dictionary)
+        return (equalness + facts)
 
 
 def triangle_master(base,
                     height,
                     return_diagram=False,
                     return_dictionary=False):
+
+    reference = get_triangle_facts(base, height)
     if return_diagram and return_dictionary:
-        return None
+        return {"diagram": tell_me_about_this_right_triangle(reference),
+                "facts": reference}
     elif return_diagram:
-        return None
+        return (tell_me_about_this_right_triangle(reference))
     elif return_dictionary:
-        return None
+        return {"facts": reference}
     else:
         print("You're an odd one, you don't want anything!")
 
 
 def wordy_pyramid():
-    import requests
-    baseURL = "http://www.setgetgo.com/randomword/get.php?len="
-    pyramid_list = []
-    for i in range(3, 20, 2):
-        url = baseURL + str(i)
-        r = requests.get(url)
-        message = r.text
-        pyramid_list.append(message)
-    for i in range(20, 3, -2):
-        url = baseURL + str(i)
-        r = requests.get(url)
-        message = r.text
-        pyramid_list.append(message)
-    return pyramid_list
+    word_pyramid1 = list_of_words_with_lengths(range(3, 21, 2))
+    word_pyramid2 = list_of_words_with_lengths(range(20, 3, -2))
+    return (word_pyramid1 + word_pyramid2)
 
 
 def get_a_word_of_length_n(length):
-    pass
+    try:
+        length = int(length)
+        if length > 0:
+            import requests
+            baseURL = "http://www.setgetgo.com/randomword/get.php?len="
+            url = baseURL + str(length)
+            r = requests.get(url)
+            message = r.text
+            return message
+    except Exception:
+        pass
 
 
 def list_of_words_with_lengths(list_of_lengths):
-    pass
+    lists = []
+    for i in list_of_lengths:
+        lists.append(get_a_word_of_length_n(i))
+    return lists
 
 
 if __name__ == "__main__":
