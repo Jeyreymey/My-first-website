@@ -91,6 +91,7 @@ def abba(source="abba", guard=3):
     aobaobbbabbaoaaobbbaoaaobaobaobbba
                 and so on...
     """
+
     def apply_rules(letter):
         """Control the substitution.
 
@@ -106,7 +107,13 @@ def abba(source="abba", guard=3):
             return letter
 
     # write the rest of the function here
-    pass
+    import itertools
+    word = source
+    for _ in itertools.repeat(None, guard):
+        letters = list(word)
+        letters = [apply_rules(i) for i in letters]
+        word = "".join(letters)
+    return word
 
 
 def koch(t, order, size):
@@ -150,9 +157,14 @@ def square_koch(t, order, size):
 
     """
     trace = ""
-    # write the rest of the function here.
+    # write the rest of the function here
+    if order == 0:
+        t.forward(size)
+    else:
+        for angle in [90, -90, -90, 90, 0]:
+            trace += square_koch(t, order-1, size/3)
+            t.left(angle)
     return str(order) + trace
-    pass
 
 
 def draw_square(steps=4):
