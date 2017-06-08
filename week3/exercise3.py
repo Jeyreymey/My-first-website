@@ -4,8 +4,6 @@ Steps on the way to making your own guessing game.
 """
 from __future__ import division
 from __future__ import print_function
-from exercise1 import not_number_rejector
-from exercise1 import super_asker
 import random
 
 
@@ -28,35 +26,45 @@ def advancedGuessingGame():
     Remember to think modular. Try to keep your functions small and single
     purpose if you can!
     """
-    lowerBound = not_number_rejector("Enter a lower bound: ")
-    while True:
-        upperBound = not_number_rejector("Enter an upper bound: ")
-        if upperBound <= lowerBound:
-            print ("Enter number over {}: ".format(lowerBound))
-        elif upperBound == lowerBound + 1:
-            print ("Enter a number over {}".format(upperBound))
-        elif lowerBound >= upperBound:
-            print("{} is not a number below the upperBound".format(lowerBound))
-        else:
-            print("Lets Start")
-            break
+    print("\nwelcome to the guessing game!")
+    print("A number between _ and _ ?")
+    error = True
+    while error is True:
+        lowerBound = raw_input("Enter a lower bound: ")
+        upperBound = raw_input("Enter an upper bound: ")
+        try:
+            lowerBound = int(lowerBound)
+            upperBound = int(upperBound)
+            error = False
+        except Exception:
+            error = True
+    if lowerBound > upperBound:
+        tempBound = lowerBound
+        lowerBound = upperBound
+        upperBound = tempBound
+    print("OK then, a number between {} and {} ?".format(lowerBound,
+          upperBound))
 
     actualNumber = random.randint(lowerBound, upperBound)
 
     guessed = False
-
+    count = 0
     while not guessed:
-        guessedNumber = super_asker(lowerBound, upperBound)
-        print("You guessed {}".format(guessedNumber),)
+        guessedNumber = int(raw_input("guess a number: "))
+        print("you guessed {},".format(guessedNumber),)
         if guessedNumber == actualNumber:
-            print("It was {}".format(actualNumber))
+            print("you got it!! It was {}".format(actualNumber))
+            guessed = True
+        elif count == 3:
+            print("you gave up, answer was {}".format(actualNumber))
             guessed = True
         elif guessedNumber < actualNumber:
-            print("too small, try again")
+            print("too small, try again ")
+            count += 1
         else:
-            print("too big, try again")
-    return "Congrats"
-
+            print("too big, try again   ")
+            count += 1
+return "You got it!"
 
 if __name__ == "__main__":
     advancedGuessingGame()
