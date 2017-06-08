@@ -111,7 +111,8 @@ def wordy_pyramid():
         word_pyramid.append(str(pyramid))
         length -= 2
         print (word_pyramid)
-        return word_pyramid
+
+    return word_pyramid
 
 
 def wunderground():
