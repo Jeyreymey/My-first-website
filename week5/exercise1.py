@@ -271,7 +271,10 @@ def list_of_words_with_lengths(list_of_lengths):
     """Create a list of words with a generaive number of letters.
 
     from the last line of code extend it to form a list of these words.
-    """
+    lists = []
+    for i in list_of_lengths:
+        lists.append(get_a_word_of_length_n(i))
+    return lists
 
 
 if __name__ == "__main__":
